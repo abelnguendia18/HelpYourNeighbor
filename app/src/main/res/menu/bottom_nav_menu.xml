@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_home_black"
+        />
+    <item
+        android:id="@+id/search"
+        android:title="Search Helper"
+        android:icon="@drawable/ic_search_black"
+        />
+    <item
+        android:id="@+id/chat"
+        android:title="Messages"
+        android:icon="@drawable/ic_chat_black"
+        />
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings_black"
+        />
+
+</menu>

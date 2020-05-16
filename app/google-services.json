@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "813863456361",
+    "firebase_url": "https://helpyourneighbor-a1df1.firebaseio.com",
+    "project_id": "helpyourneighbor-a1df1",
+    "storage_bucket": "helpyourneighbor-a1df1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813863456361:android:f599474907128d36299cf8",
+        "android_client_info": {
+          "package_name": "com.example.helpyourneighbor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813863456361-7f2lldpj5nphn4qjh3nitjajdd2njs1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXBeOQzxYcd_Tcvcla4s1sVai87MKzIL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813863456361-7f2lldpj5nphn4qjh3nitjajdd2njs1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
