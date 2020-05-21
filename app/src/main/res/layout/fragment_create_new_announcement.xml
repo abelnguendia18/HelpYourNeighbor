@@ -4,20 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".CreateNewAnnouncement">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:background="@color/greenOfApp"
-    android:fontFamily="@font/bangers"
-    android:text="@string/home"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/greenOfApp"
+        android:fontFamily="@font/bangers"
+        android:text="@string/new_announcement"
         android:textSize="30sp"
-    android:textStyle="italic" />
-
-
-
-
+        android:textStyle="italic" />
 
 </LinearLayout>

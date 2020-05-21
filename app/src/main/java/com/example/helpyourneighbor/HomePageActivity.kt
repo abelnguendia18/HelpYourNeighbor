@@ -18,12 +18,18 @@ class HomePageActivity : AppCompatActivity() {
         //the first fragment is going to be default loaded
         loadFragment(HomeFragment())
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        fab.setOnClickListener(){
+            loadFragment(CreateNewAnnouncement())
+        }
     }
+
+
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener@{ item->
         when(item.itemId)
         {
             R.id.home -> {
+                //item.setIconTint
                 loadFragment(HomeFragment())
                 //Toast.makeText(this, getText(R.string.developer_name), Toast.LENGTH_LONG).show()
                 return@onNavigationItemSelectedListener true

@@ -8,11 +8,13 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="28dp"
         android:layout_marginBottom="80dp"
-        android:src="@drawable/ic_add_black"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/greenOfApp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -31,10 +33,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/greenOfApp"
-    app:itemIconTint="@color/colorWhite"
-    app:itemTextColor="@color/colorWhite"
+    app:itemIconTint="@color/colorBlack"
+    app:itemTextColor="@color/colorBlack"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
+    app:labelVisibilityMode="labeled"
 
     app:menu="@menu/bottom_nav_menu"/>
 
