@@ -3,17 +3,17 @@
     <item
         android:id="@+id/home"
         android:title="@string/home"
-        android:icon="@drawable/ic_home_black"/>
+        android:icon="@drawable/home_selector"/>
     <item
-        android:id="@+id/search"
-        android:title="@string/search_helper"
-        android:icon="@drawable/ic_search_black"/>
+        android:id="@+id/neue_anzeige"
+        android:title="@string/neue_anzeige_inserieren"
+        android:icon="@drawable/add_new_announcement_selector"/>
     <item
         android:id="@+id/chat"
         android:title="@string/chats"
-        android:icon="@drawable/icons8_chat_30"/>
+        android:icon="@drawable/chat_selector"/>
     <item
         android:id="@+id/my_account"
         android:title="@string/my_account"
-        android:icon="@drawable/baseline_account_circle_black_36"/>
+        android:icon="@drawable/my_account_selector"/>
 </menu>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".CreateNewAnnouncement">
 
@@ -16,5 +17,117 @@
         android:text="@string/new_announcement"
         android:textSize="30sp"
         android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/user_image_id"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:background="@drawable/icon_add_new_image_48"
+            android:padding="55dp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton_biete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Ich biete" />
+
+            <RadioButton
+                android:id="@+id/radioButton_suche"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ich suche"
+                android:layout_margin="5dp"/>
+        </RadioGroup>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editText_titel_anzeige"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Titel"
+            app:hintTextColor="@color/greenOfApp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kategorie_anzeige"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kategorie"
+            app:hintTextColor="@color/greenOfApp"
+            app:endIconMode="dropdown_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editText_kategorie_preis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Preis"
+            app:hintTextColor="@color/greenOfApp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editText_beschreibung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Beschreibung"
+            app:hintTextColor="@color/greenOfApp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_create_account_sign_up_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ANZEIGE AUFGEBEN"
+            android:background="@color/greenOfApp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"/>
+
+
+
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

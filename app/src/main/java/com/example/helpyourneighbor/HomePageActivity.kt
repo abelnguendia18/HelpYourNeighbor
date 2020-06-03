@@ -18,9 +18,6 @@ class HomePageActivity : AppCompatActivity() {
         //the first fragment is going to be default loaded
         loadFragment(HomeFragment())
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        fab.setOnClickListener(){
-            loadFragment(CreateNewAnnouncement())
-        }
     }
 
 
@@ -35,10 +32,10 @@ class HomePageActivity : AppCompatActivity() {
                 return@onNavigationItemSelectedListener true
             }
 
-            R.id.search -> {
+            R.id.neue_anzeige -> {
                 //Toast.makeText(this@MainActivity,getText(R.findViewB), Toast.LENGTH_LONG).show()
                 //Toast.makeText(this, "Search Helper", Toast.LENGTH_LONG).show()
-                loadFragment(SearchHelperFragment())
+                loadFragment(CreateNewAnnouncement())
                 return@onNavigationItemSelectedListener true
             }
             R.id.chat ->{
