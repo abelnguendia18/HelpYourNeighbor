@@ -16,8 +16,10 @@
         android:textSize="30sp"
     android:textStyle="italic" />
 
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_announcement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

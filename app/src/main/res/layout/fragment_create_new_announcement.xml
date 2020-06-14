@@ -24,13 +24,24 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/user_image_id"
+            android:id="@+id/btn_selectPhoto_new_announcement"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
             android:background="@drawable/icon_add_new_image_48"
-            android:padding="55dp"/>
+            android:padding="55dp"
+            android:visibility="visible"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/icon_add_new_image_48"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:visibility="gone"/>
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -55,6 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="Titel"
             app:hintTextColor="@color/greenOfApp"
+            android:background="@color/colorWhite"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -73,9 +85,11 @@
             android:hint="Kategorie"
             app:hintTextColor="@color/greenOfApp"
             app:endIconMode="dropdown_menu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.ExposedDropdownMenu">
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
+                android:id="@+id/autoCompleteTV_categorie_of_announcement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -86,14 +100,14 @@
             android:id="@+id/editText_kategorie_preis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Preis"
+            android:hint="Preis(€)"
             app:hintTextColor="@color/greenOfApp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="numberDecimal"/>
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -110,9 +124,14 @@
                 android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/tv_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <Button
-            android:id="@+id/btn_create_account_sign_up_activity"
+            android:id="@+id/btn_create_new_announcement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ANZEIGE AUFGEBEN"

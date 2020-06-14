@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +17,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var edtUsername : TextInputLayout
     private lateinit var edtEmail : TextInputLayout
     private lateinit var edtPassword : TextInputLayout
+    private lateinit var btnSelectPhoto : Button
     private val LOGCAT_NAME = "SignUpActivity "
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         edtUsername = findViewById(R.id.editText_sign_up_activity_username)
         edtEmail = findViewById(R.id.editText_sign_up_activity_email)
         edtPassword = findViewById(R.id.editText_sign_up_activity_password)
+
 
         btn_create_account_sign_up_activity.setOnClickListener()
         {
@@ -51,27 +54,32 @@ private fun saveUser() {
     val username = edtUsername.editText?.text.toString().trim()
     val email = edtEmail.editText?.text.toString().trim()
     val password = edtPassword.editText?.text.toString().trim()
-    // The reference users is considered  like a table of the database
-    val dbReference = FirebaseDatabase.getInstance().getReference("users")
-    val userId = dbReference.push().key // to obtain(generate) one unique key for our object
-    val user1 = User(userId , name, username, email, password)
-    if (userId != null) {
-        dbReference.child(userId).setValue(user1).addOnCompleteListener(){
+    //val dbReference = FirebaseDatabase.getInstance().getReference("users")
+    //val userId = dbReference.push().key // to obtain(generate) one unique key for our object
+    //val user1 = User(userId , name, username)
+    //if (userId != null) {
+      /*  dbReference.child(userId).setValue(user1).addOnCompleteListener(){
             Toast.makeText(this, "User created successfully", Toast.LENGTH_LONG).show()
-        }
+        }*/
         //Creation of Login Account with email and password
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{
                 if (!it.isSuccessful) return@addOnCompleteListener
 
                 //else if successfully
-                Toast.makeText(this," User Create successful", Toast.LENGTH_LONG ).show()
+
+                val uid = FirebaseAuth.getInstance().uid
+                val dbReference = FirebaseDatabase.getInstance().getReference("/users/$uid")
+                val someUser = User(uid, name, username)
+                dbReference.setValue(someUser).addOnCompleteListener(){
+                    Toast.makeText(this," User created successfully", Toast.LENGTH_LONG ).show()
+                }
             }
             .addOnFailureListener{
                 Log.i(LOGCAT_NAME,"Failed to create the user: ${it.message}")
                 Toast.makeText(this,"Failed to create the User", Toast.LENGTH_LONG ).show()
             }
-    }
+    //}
 
 }
 
@@ -146,4 +154,5 @@ private fun checkPassword(): Boolean{
     }
     return result
 }
+
 }
