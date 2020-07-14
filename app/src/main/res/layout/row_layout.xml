@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
+    app:cardElevation="5dp"
+    android:layout_margin="5dp"
     app:cardUseCompatPadding="true">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,9 +13,10 @@
         android:padding="16dp">
         <ImageView
             android:id="@+id/imageIv"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/start_ico"
+            android:layout_marginBottom="20dp"/>
         <TextView
         android:id="@+id/titleTv"
         android:layout_width="wrap_content"
@@ -38,6 +40,35 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_below="@+id/titleTv"
+            />
+
+        <ImageView
+            android:id="@+id/locationIv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/icon_location_50"
+            android:layout_below="@+id/imageIv"
+            />
+        <TextView
+            android:id="@+id/cityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="City"
+            android:layout_below="@+id/imageIv"
+            android:layout_marginLeft="1dp"
+            android:layout_toRightOf="@+id/locationIv"
+            />
+        <TextView
+            android:id="@+id/priceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textSize="18sp"
+            android:layout_marginLeft="130dp"
+            android:layout_toRightOf="@+id/cityTv"
+            android:layout_below="@+id/imageIv"
             />
 
     </RelativeLayout>

@@ -1,5 +1,8 @@
 package com.example.helpyourneighbor
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var edtName : TextInputLayout
-    private lateinit var edtUsername : TextInputLayout
+    private lateinit var edtPhone : TextInputLayout
     private lateinit var edtEmail : TextInputLayout
     private lateinit var edtPassword : TextInputLayout
     private lateinit var btnSelectPhoto : Button
@@ -26,14 +29,21 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         edtName = findViewById(R.id.editText_sign_up_activity_name)
-        edtUsername = findViewById(R.id.editText_sign_up_activity_username)
+        edtPhone = findViewById(R.id.editText_sign_up_activity_username)
         edtEmail = findViewById(R.id.editText_sign_up_activity_email)
         edtPassword = findViewById(R.id.editText_sign_up_activity_password)
 
 
         btn_create_account_sign_up_activity.setOnClickListener()
         {
-            if(checkName() && checkUsername() && checkEmail() && checkPassword()){
+            val internetConnectionState : Boolean = Helper.checkInternetConnection(this)
+            if(checkName() && checkEmail() && checkPassword()){
+                //In case there is no internet connection
+                if (!internetConnectionState)
+                {
+                    Toast.makeText(this,"Prüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+                    return@setOnClickListener
+                }
 
                 saveUser()
             }
@@ -51,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
 private fun saveUser() {
 
     val name = edtName.editText?.text.toString().trim()// we cast TextInputLayout into EditText
-    val username = edtUsername.editText?.text.toString().trim()
+    val phone = edtPhone.editText?.text.toString().trim()
     val email = edtEmail.editText?.text.toString().trim()
     val password = edtPassword.editText?.text.toString().trim()
     //val dbReference = FirebaseDatabase.getInstance().getReference("users")
@@ -67,23 +77,38 @@ private fun saveUser() {
                 if (!it.isSuccessful) return@addOnCompleteListener
 
                 //else if successfully
-
+                //We retrieve the ID of the created Account to assign it as UserId
                 val uid = FirebaseAuth.getInstance().uid
                 val dbReference = FirebaseDatabase.getInstance().getReference("/users/$uid")
-                val someUser = User(uid, name, username)
+                val someUser = User(uid, name, phone)
+                savePhoneNumber(phone)
                 dbReference.setValue(someUser).addOnCompleteListener(){
                     Toast.makeText(this," User created successfully", Toast.LENGTH_LONG ).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent)
                 }
             }
             .addOnFailureListener{
                 Log.i(LOGCAT_NAME,"Failed to create the user: ${it.message}")
-                Toast.makeText(this,"Failed to create the User", Toast.LENGTH_LONG ).show()
+                Toast.makeText(this,"Überprüfen Sie bitte Ihre Eingaben.", Toast.LENGTH_LONG ).show()
             }
     //}
 
 }
+    private fun savePhoneNumber( phoneNumber : String){
+        val uid = FirebaseAuth.getInstance().uid
+        val key : String = "phoneNumber"+uid
+        val sharedPreferences : SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.apply{
+            putString(key, phoneNumber)
+        }.apply()
 
-private fun checkName(): Boolean{
+    }
+
+    private fun checkName(): Boolean{
     val name = edtName.editText?.text.toString().trim()
     //val noWhiteSpace = "\\A\\w{4,20}\\z"
     var result = true
@@ -100,24 +125,24 @@ private fun checkName(): Boolean{
     return result
 }
 
-private fun checkUsername(): Boolean{
-    val username = edtUsername.editText?.text.toString().trim()
+    private fun checkUsername(): Boolean{
+    val username = edtPhone.editText?.text.toString().trim()
     //val noWhiteSpace = "\\A\\w{4,20}\\z"
     var result = true
     if(username.isEmpty())
     {
-        edtUsername.error ="Please enter an Username"
+        edtPhone.error ="Please enter an Username"
         result = false
     }
     else{
-        edtUsername.error = null
-        edtUsername.isErrorEnabled = false
+        edtPhone.error = null
+        edtPhone.isErrorEnabled = false
         result = true
     }
     return result
 }
 
-private fun checkEmail(): Boolean{
+    private fun checkEmail(): Boolean{
     val email = edtEmail.editText?.text.toString().trim()
     //val noWhiteSpace = "\\A\\w{4,20}\\z"
     var result = true
@@ -134,7 +159,7 @@ private fun checkEmail(): Boolean{
     return result
 }
 
-private fun checkPassword(): Boolean{
+    private fun checkPassword(): Boolean{
     val password = edtPassword.editText?.text.toString().trim()
     val noWhiteSpace = "\\A\\w{6,20}\\z".toRegex()
     var result = true

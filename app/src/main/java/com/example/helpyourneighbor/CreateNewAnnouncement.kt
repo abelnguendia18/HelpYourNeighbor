@@ -1,8 +1,11 @@
 package com.example.helpyourneighbor
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -27,17 +30,20 @@ import java.util.*
  */
 class CreateNewAnnouncement : Fragment() {
     lateinit var textField_kategorie: AutoCompleteTextView
-    lateinit var edtTitle : TextInputLayout
+    //lateinit var edtTitle : TextInputLayout
     lateinit var  edtPrice : TextInputLayout
     lateinit var edtDescription : TextInputLayout
+    lateinit var edtAddress : TextInputLayout
     lateinit var btnSelectPhoto : Button
     lateinit var btnCreateNewAnnouncement: Button
     lateinit var radioGroup : RadioGroup
     lateinit var tv : TextView
     lateinit var status : String
     lateinit var category : String
-    val items = arrayOf("Putzhilfe", "Einkaufshilfe", "Hundesitter", "Gartenhilfe", "Sonstiges")
+    //different categories
+    val items = arrayOf("Putzhilfe", "Einkaufshilfe", "Hundesitter-Hilfe", "Gartenhilfe", "Sonstiges")
     val LOG_NAME ="CreateNewAnnouncement"
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,18 +53,19 @@ class CreateNewAnnouncement : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_create_new_announcement, container, false)
 
-        tv = view.findViewById(R.id.tv_test)
+        //tv = view.findViewById(R.id.tv_test)
         btnSelectPhoto = view.findViewById(R.id.btn_selectPhoto_new_announcement)
         textField_kategorie = view.findViewById(R.id.autoCompleteTV_categorie_of_announcement)
         btnCreateNewAnnouncement = view.findViewById(R.id.btn_create_new_announcement)
-        edtTitle = view.findViewById(R.id.editText_titel_anzeige)
+        //edtTitle = view.findViewById(R.id.editText_titel_anzeige)
         edtPrice = view.findViewById(R.id.editText_kategorie_preis)
+        edtAddress = view.findViewById(R.id.editText_adresse)
         edtDescription = view.findViewById(R.id.editText_beschreibung)
         radioGroup = view.findViewById(R.id.radioGroup)
 
 
         val uid = FirebaseAuth.getInstance().uid
-        Toast.makeText(context,"$uid",Toast.LENGTH_LONG ).show()
+        //Toast.makeText(context,"$uid",Toast.LENGTH_LONG ).show()
         Log.d(LOG_NAME, uid.toString())
         val adapter = ArrayAdapter<String>(requireContext(), R.layout.list_item, items)
         textField_kategorie.setAdapter(adapter)
@@ -84,12 +91,18 @@ class CreateNewAnnouncement : Fragment() {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 0)
-            Toast.makeText(context,"your photo is ready...",Toast.LENGTH_LONG ).show()
+            //Toast.makeText(context,"your photo is ready...",Toast.LENGTH_LONG ).show()
         }
 
 
         btnCreateNewAnnouncement.setOnClickListener(){
-            //Toast.makeText(context,tv_test.text.toString(),Toast.LENGTH_LONG ).show()
+            val internetConnectionState : Boolean = Helper.checkInternetConnection(requireContext())
+            if (!internetConnectionState){
+                Toast.makeText(context,"Überprüfen Sie bitte Ihre Internetverbindung.",Toast.LENGTH_LONG ).show()
+                return@setOnClickListener
+            }
+
+
             uploadImageToFirebase()
         }
 
@@ -125,18 +138,29 @@ class CreateNewAnnouncement : Fragment() {
 
 
     private fun saveAnnouncementToFirebaseDatabase(imagePath : String){
+        val context : Context = activity!!.applicationContext
         val ownerId = FirebaseAuth.getInstance().uid ?: ""// empty String in case the value is null
         //val dbRef = FirebaseDatabase.getInstance().getReference("/announcements/$uid")
+        //val title = edtTitle.editText?.text.toString().trim()
+        val price = edtPrice.editText?.text.toString().trim()
+        val address = edtAddress.editText?.text.toString().trim()
+        val description = edtDescription.editText?.text.toString().trim()
+        val key : String = "phoneNumber"+ownerId
+        val sharedPreferences : SharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val ownerPhoneNumber = sharedPreferences.getString(key, null)
         val dbRef = FirebaseDatabase.getInstance().getReference("/announcements/")
         val announcementId = dbRef.push().key // to obtain(generate) one unique key to store our object
-        val title = edtTitle.editText?.text.toString().trim()
-        val price = edtPrice.editText?.text.toString().trim()
-        val description = edtDescription.editText?.text.toString().trim()
+
         if(announcementId != null)
         {
-            val announcement = Announcement(announcementId, imagePath, status, title, category, price, description, ownerId)
+            val announcement = Announcement(announcementId, imagePath, status, category, price, address, description, ownerId, ownerPhoneNumber!!)
             dbRef.child(announcementId).setValue(announcement).addOnSuccessListener {
-                Log.d(LOG_NAME,"Announcement created successfully")
+                Toast.makeText(context, "Ihre Anzeige wurde erfolgreich erstellt", Toast.LENGTH_LONG).show()
+                //HomePageActivity().loadFragment(HomeFragment())
+                val intent = Intent(context, HomePageActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent)
             }
         }
 
@@ -145,6 +169,5 @@ class CreateNewAnnouncement : Fragment() {
                     Log.d(LOG_NAME,"Announcement created successfully")
                 }*/
     }
-
 
 }

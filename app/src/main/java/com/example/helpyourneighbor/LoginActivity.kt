@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -27,7 +28,14 @@ class LoginActivity : AppCompatActivity() {
         edtPassword = findViewById(R.id.editText_login_activity_password)
 
         btn_sign_in.setOnClickListener(){
+            val internetConnectionState : Boolean = Helper.checkInternetConnection(this)
+
             if(checkEmail() && checkPassword()){
+                if (!internetConnectionState)
+                {
+                    Toast.makeText(this,"Überprüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+                    return@setOnClickListener
+                }
                 loginPerformed()
             }
         }
@@ -54,6 +62,8 @@ class LoginActivity : AppCompatActivity() {
                 //else if successfully
                 //Toast.makeText(this," Login successful",Toast.LENGTH_LONG ).show()
                 val intent = Intent(this, HomePageActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent)
             }
             .addOnFailureListener{

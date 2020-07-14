@@ -27,7 +27,7 @@
         android:id="@+id/textView_help_your_Neighbour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/bangers"
         android:transitionName="start_activity_text"
         android:text="   Help Your Neighbour    "
