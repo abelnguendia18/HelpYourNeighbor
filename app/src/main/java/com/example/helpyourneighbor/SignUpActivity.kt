@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import com.example.helpyourneighbor.models.User
+import com.example.helpyourneighbor.utils.Utils
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -36,12 +38,13 @@ class SignUpActivity : AppCompatActivity() {
 
         btn_create_account_sign_up_activity.setOnClickListener()
         {
-            val internetConnectionState : Boolean = Helper.checkInternetConnection(this)
+            val internetConnectionState : Boolean = Utils.checkInternetConnection(this)
             if(checkName() && checkEmail() && checkPassword()){
                 //In case there is no internet connection
                 if (!internetConnectionState)
                 {
-                    Toast.makeText(this,"Prüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+                    //Toast.makeText(this,"Prüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+                    Utils.alertDialogInternetShower(this)
                     return@setOnClickListener
                 }
 

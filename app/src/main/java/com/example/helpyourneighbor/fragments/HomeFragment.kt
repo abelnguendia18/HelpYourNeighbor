@@ -1,18 +1,20 @@
-package com.example.helpyourneighbor
+package com.example.helpyourneighbor.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.helpyourneighbor.AnnouncementDetailsActivity
+import com.example.helpyourneighbor.adapters.MyAdapter
+import com.example.helpyourneighbor.R
+import com.example.helpyourneighbor.models.Announcement
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -31,7 +33,7 @@ class HomeFragment : Fragment(), MyAdapter.OnItemClickListener {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView = view.findViewById(R.id.recyclerView_announcement)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        announcementList = mutableListOf()
+        announcementList = mutableListOf()// we need to initialize the list.
 
 
         return view
@@ -41,7 +43,9 @@ class HomeFragment : Fragment(), MyAdapter.OnItemClickListener {
         val context : Context = activity!!.applicationContext
         super.onStart()
 
-        //recyclerView.adapter = Helper().retrieveAnnouncementsFromFirebase(requireContext())
+        //recyclerView.adapter = Utils().retrieveAnnouncementsFromFirebase(requireContext())
+
+        val uid = FirebaseAuth.getInstance().uid
 
         val dbRef = FirebaseDatabase.getInstance().getReference("announcements")
 
@@ -55,6 +59,7 @@ class HomeFragment : Fragment(), MyAdapter.OnItemClickListener {
                 if(p0!!.exists()){
                     for(h in p0.children){
                         val announcement = h.getValue(Announcement::class.java)
+                        if(announcement!!.ownerId != uid)// One user don't need to see his announcements in the list on HomePage.
                         announcementList.add(announcement!!)
                     }
                     Log.d("HomeFragment", "part3: il y a ${announcementList.size} elements dans la db")
@@ -73,10 +78,12 @@ class HomeFragment : Fragment(), MyAdapter.OnItemClickListener {
 
     override fun onItemClick(announcement: Announcement) {
 
-        Toast.makeText(requireContext(), announcement.ownerPhoneNumber , Toast.LENGTH_LONG ).show()
+        //Toast.makeText(requireContext(), announcement.ownerPhoneNumber , Toast.LENGTH_LONG ).show()
         val intent = Intent(context, AnnouncementDetailsActivity::class.java)
+        intent.putExtra("someAnnouncement",announcement)
         intent.putExtra("announcementStatus", announcement.status)
         intent.putExtra("announcementDescription", announcement.descriptionAnnouncement)
+        intent.putExtra("announcementOwnerId", announcement.ownerId)
         intent.putExtra("announcementPrice", announcement.priceAnnouncement)
         intent.putExtra("announcementOwnerPhoneNumber", announcement.ownerPhoneNumber)
 

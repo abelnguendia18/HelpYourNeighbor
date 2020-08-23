@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/bangers"
         android:gravity="center_horizontal"
-        android:text="Hello there and Welcome Back!!!"
+        android:text="Hi, willkommen zurück!!!"
         android:textAlignment="center"
         android:textSize="30sp"
         android:transitionName="start_activity_text" />
@@ -43,7 +43,7 @@
         android:id="@+id/textView_login_activity_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In to continue"
+        android:text="Loggen Sie sich ein"
         android:textSize="18sp"
         android:fontFamily="@font/antic"/>
 
@@ -58,7 +58,7 @@
             android:id="@+id/editText_login_activity_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="E-Mail"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +72,7 @@
             android:id="@+id/editText_login_activity_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="Passwort"
             app:passwordToggleEnabled="true"
             android:layout_marginTop="5dp"
 
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:text="New User? SIGN UP"
+            android:text="Sind Sie neu? Registrieren"
             android:layout_gravity="right"
             android:elevation="0dp"
             android:layout_margin="5dp"

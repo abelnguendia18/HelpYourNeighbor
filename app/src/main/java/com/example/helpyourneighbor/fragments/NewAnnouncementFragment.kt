@@ -1,10 +1,11 @@
-package com.example.helpyourneighbor
+package com.example.helpyourneighbor.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.helpyourneighbor.R
 
 /**
  * A simple [Fragment] subclass.

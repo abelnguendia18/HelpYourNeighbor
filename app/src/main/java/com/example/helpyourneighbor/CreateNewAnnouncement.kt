@@ -1,7 +1,6 @@
 package com.example.helpyourneighbor
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -16,13 +15,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.helpyourneighbor.models.Announcement
+import com.example.helpyourneighbor.utils.Utils
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_home_page.*
-import kotlinx.android.synthetic.main.fragment_create_new_announcement.*
 import java.util.*
 
 /**
@@ -96,9 +94,10 @@ class CreateNewAnnouncement : Fragment() {
 
 
         btnCreateNewAnnouncement.setOnClickListener(){
-            val internetConnectionState : Boolean = Helper.checkInternetConnection(requireContext())
+            val internetConnectionState : Boolean = Utils.checkInternetConnection(requireContext())
             if (!internetConnectionState){
-                Toast.makeText(context,"Überprüfen Sie bitte Ihre Internetverbindung.",Toast.LENGTH_LONG ).show()
+                Utils.alertDialogInternetShower(context!!)
+                //Toast.makeText(context,"Überprüfen Sie bitte Ihre Internetverbindung.",Toast.LENGTH_LONG ).show()
                 return@setOnClickListener
             }
 
@@ -130,9 +129,13 @@ class CreateNewAnnouncement : Fragment() {
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
         ref.putFile(selectedPhotoUri!!).
-                addOnSuccessListener {
+                addOnSuccessListener { it ->
                     Log.d(LOG_NAME,"successfully uploaded image : ${it.metadata?.path}")
-                    saveAnnouncementToFirebaseDatabase(it.toString())
+                    ref.downloadUrl.addOnSuccessListener {
+                        Log.d(LOG_NAME,"file location : $it")
+                        saveAnnouncementToFirebaseDatabase(it.toString())
+                    }
+
                 }
     }
 

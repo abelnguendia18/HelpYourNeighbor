@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var topAnim : Animation
     private lateinit var bottomAnim : Animation
-    private val SPLASH_SCREEN_TIMER: Long = 2500
+    private val SPLASH_SCREEN_TIMER: Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // One way to hide the ActionBar(ColorPrimary and ColorPrimaryDark in styles.xml)

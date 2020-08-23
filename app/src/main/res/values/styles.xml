@@ -10,5 +10,7 @@
         <item name="colorAccent">@color/colorBlack</item>
 
     </style>
-
+<style name="alertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorAccent">@color/greenOfApp</item>
+</style>
 </resources>

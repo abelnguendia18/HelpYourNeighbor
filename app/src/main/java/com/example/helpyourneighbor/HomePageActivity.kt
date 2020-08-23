@@ -1,9 +1,11 @@
 package com.example.helpyourneighbor
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.helpyourneighbor.fragments.ChatFragmentTemporary
+import com.example.helpyourneighbor.fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
 
@@ -34,21 +36,24 @@ class HomePageActivity : AppCompatActivity() {
 
             R.id.neue_anzeige -> {
                 //Toast.makeText(this@MainActivity,getText(R.findViewB), Toast.LENGTH_LONG).show()
-                //Toast.makeText(this, "Search Helper", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "Search Utils", Toast.LENGTH_LONG).show()
                 loadFragment(CreateNewAnnouncement())
                 return@onNavigationItemSelectedListener true
             }
             R.id.chat ->{
 
                 //Toast.makeText(this, "Chats", Toast.LENGTH_LONG).show()
-                loadFragment(ChatFragment())
+                //loadFragment(ChatFragment())
+                loadFragment(ChatFragmentTemporary())
                 return@onNavigationItemSelectedListener true
             }
 
             R.id.my_account ->{
 
                 //Toast.makeText(this, "My Account", Toast.LENGTH_LONG).show()
-                loadFragment(AccountParameterFragment())
+                //loadFragment(AccountParameterFragment())
+                val intent = Intent(this, MyAccountActivity::class.java)
+                startActivity(intent)
                 return@onNavigationItemSelectedListener true
             }
         }

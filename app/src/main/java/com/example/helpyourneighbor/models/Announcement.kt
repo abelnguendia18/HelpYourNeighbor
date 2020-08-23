@@ -1,7 +1,11 @@
-package com.example.helpyourneighbor
+package com.example.helpyourneighbor.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 class Announcement(val announcementId : String, val imagePath : String, val status : String, val categoryAnnouncement : String, val priceAnnouncement: String,
-                   val ownerAddress : String, val descriptionAnnouncement: String, val ownerId : String, val ownerPhoneNumber : String){
+                   val ownerAddress : String, val descriptionAnnouncement: String, val ownerId : String, val ownerPhoneNumber : String): Parcelable{
 
     constructor() : this ("","","","","",
                             "", "","", ""){

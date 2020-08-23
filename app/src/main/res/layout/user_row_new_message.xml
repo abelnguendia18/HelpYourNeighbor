@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="0dp"
+    android:layout_margin="1dp"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imageView_chat_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_icon_chat_32"/>
+
+
+    <TextView
+        android:id="@+id/textView_username_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/imageView_chat_profile"
+        android:layout_toRightOf="@+id/imageView_chat_profile"
+        android:layout_marginTop="1dp"
+        android:textStyle="bold"
+        android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView_message_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/imageView_chat_profile"
+            android:layout_toRightOf="@+id/imageView_chat_profile"
+            android:layout_marginTop="25dp"
+            android:text="TextView" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

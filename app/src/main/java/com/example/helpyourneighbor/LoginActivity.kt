@@ -1,11 +1,12 @@
 package com.example.helpyourneighbor
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
-import android.widget.Toast
+import com.example.helpyourneighbor.utils.Utils
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -28,12 +29,21 @@ class LoginActivity : AppCompatActivity() {
         edtPassword = findViewById(R.id.editText_login_activity_password)
 
         btn_sign_in.setOnClickListener(){
-            val internetConnectionState : Boolean = Helper.checkInternetConnection(this)
+            val internetConnectionState : Boolean = Utils.checkInternetConnection(this)
 
             if(checkEmail() && checkPassword()){
                 if (!internetConnectionState)
                 {
-                    Toast.makeText(this,"Überprüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+                    //Toast.makeText(this,"Überprüfen Sie bitte Ihre Internetverbindung.", Toast.LENGTH_LONG ).show()
+/*                    val builder = AlertDialog.Builder(this, R.style.alertTheme)
+                    builder.setTitle("Internetzugang")
+                    builder.setIcon(R.drawable.ic_action_warning)
+                    builder.setMessage("Überprüfen Sie bitte Ihre Internetverbindung.")
+                    builder.setPositiveButton("Alles klar"){ dialog, which ->
+                        //finish()
+                    }
+                    builder.show()*/
+                    Utils.alertDialogInternetShower(this)
                     return@setOnClickListener
                 }
                 loginPerformed()
@@ -62,12 +72,21 @@ class LoginActivity : AppCompatActivity() {
                 //else if successfully
                 //Toast.makeText(this," Login successful",Toast.LENGTH_LONG ).show()
                 val intent = Intent(this, HomePageActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
             .addOnFailureListener{
+                val builder = AlertDialog.Builder(this, R.style.alertTheme)
+                builder.setTitle("Problem beim Einloggen")
+                builder.setIcon(R.drawable.ic_action_warning)
+                builder.setMessage("Überprüfen Sie bitte Ihre Eingaben oder Erstellen Sie ein Benutzerkonto, falls noch keins vorhanden ist.")
+                builder.setPositiveButton("Alles klar"){ dialog, which ->
+                    //finish()
+                }
+                builder.show()
                 Log.i(LOGCAT_NAME,"Failed to Log In: ${it.message}")
+
+
                 //Toast.makeText(this,"Failed to create the User",Toast.LENGTH_LONG ).show()
             }
     }
