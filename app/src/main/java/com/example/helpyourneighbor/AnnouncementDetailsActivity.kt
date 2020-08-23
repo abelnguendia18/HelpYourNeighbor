@@ -7,15 +7,18 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.helpyourneighbor.models.Announcement
+import com.squareup.picasso.Picasso
 
 class AnnouncementDetailsActivity : AppCompatActivity() {
     lateinit var tvStatus : TextView
     lateinit var tvDescription : TextView
     lateinit var tvPrice : TextView
+    lateinit var imageViewDetail : ImageView
     lateinit var btnCall : ImageButton
     lateinit var btnChat : ImageButton
     val REQUEST_PHONE_CALL = 1
@@ -32,6 +35,7 @@ class AnnouncementDetailsActivity : AppCompatActivity() {
         val context = this.applicationContext
         tvStatus = findViewById(R.id.statusTv_details_announcement)
         tvDescription = findViewById(R.id.descriptionTv_details_announcement)
+        imageViewDetail = findViewById(R.id.imageIv_details_announcement)
         tvPrice = findViewById(R.id.priceTv_details_announcement)
         btnCall = findViewById(R.id.btn_call_details_announcement)
         btnChat = findViewById(R.id.btn_chat_details_announcement)
@@ -41,6 +45,7 @@ class AnnouncementDetailsActivity : AppCompatActivity() {
         val receivedAnnouncement : Announcement = intent.getParcelableExtra<Announcement>("someAnnouncement")
         val ownerId = receivedAnnouncement.ownerId
         val phoneNumber2 = receivedAnnouncement.ownerPhoneNumber
+        Picasso.get().load(receivedAnnouncement.imagePath).into(imageViewDetail)
         //val ownerId = intent.getStringExtra("announcementOwnerId")
         val phoneNumber = intent.getStringExtra("announcementOwnerPhoneNumber")
 

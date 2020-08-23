@@ -132,7 +132,7 @@ class CreateNewAnnouncement : Fragment() {
                 addOnSuccessListener { it ->
                     Log.d(LOG_NAME,"successfully uploaded image : ${it.metadata?.path}")
                     ref.downloadUrl.addOnSuccessListener {
-                        Log.d(LOG_NAME,"file location : $it")
+                        Log.d(LOG_NAME,"image location : $it")
                         saveAnnouncementToFirebaseDatabase(it.toString())
                     }
 

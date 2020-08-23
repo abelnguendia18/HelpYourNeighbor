@@ -26,7 +26,7 @@ class MyAdapter(val arrayList: MutableList<Announcement>, val context : Context,
             //Glide.with(context).load("https://www.neuhauschocolates.com/4a2225/globalassets/neuhaus_images/5020497_thumbnail-coeurpraline.png?height=630&width=1200&mode=crop&quality=80").into(itemView.imageIv)
 /*            Picasso.get().load("https://www.neuhauschocolates.com/4a2225/globalassets/neuhaus_images/5020497_thumbnail-coeurpraline.png?height=630&width=1200&mode=crop&quality=80")
                 .into(itemView.imageIv);*/
-            //Picasso.get().load(announcement.imagePath).into(itemView.imageIv)
+            Picasso.get().load(announcement.imagePath).into(itemView.imageIv)
 
             itemView.setOnClickListener{
                 clickListener.onItemClick(announcement)
