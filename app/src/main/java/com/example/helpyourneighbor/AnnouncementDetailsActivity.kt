@@ -101,7 +101,7 @@ class AnnouncementDetailsActivity : AppCompatActivity() {
             val messageObject = receivedAnnouncement.descriptionAnnouncement
             intent.putExtra("smsBody", messageObject)
             startActivity(intent)
-            Toast.makeText(this,"$messageObject", Toast.LENGTH_LONG ).show()
+           // Toast.makeText(this,"$messageObject", Toast.LENGTH_LONG ).show()
         }
     }
 

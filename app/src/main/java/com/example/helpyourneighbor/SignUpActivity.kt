@@ -31,7 +31,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         edtName = findViewById(R.id.editText_sign_up_activity_name)
-        edtPhone = findViewById(R.id.editText_sign_up_activity_username)
+        edtPhone = findViewById(R.id.editText_sign_up_activity_phoneUser)
         edtEmail = findViewById(R.id.editText_sign_up_activity_email)
         edtPassword = findViewById(R.id.editText_sign_up_activity_password)
 
@@ -39,7 +39,7 @@ class SignUpActivity : AppCompatActivity() {
         btn_create_account_sign_up_activity.setOnClickListener()
         {
             val internetConnectionState : Boolean = Utils.checkInternetConnection(this)
-            if(checkName() && checkEmail() && checkPassword()){
+            if(checkName() && checkPhoneUser() && checkEmail() && checkPassword()){
                 //In case there is no internet connection
                 if (!internetConnectionState)
                 {
@@ -86,7 +86,7 @@ private fun saveUser() {
                 val someUser = User(uid, name, phone)
                 savePhoneNumber(phone)
                 dbReference.setValue(someUser).addOnCompleteListener(){
-                    Toast.makeText(this," User created successfully", Toast.LENGTH_LONG ).show()
+                    Toast.makeText(this," Ihr Konto wurde erfolgreich angelegt", Toast.LENGTH_LONG ).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -117,7 +117,8 @@ private fun saveUser() {
     var result = true
     if(name.isEmpty())
     {
-        edtName.error ="Please enter your Name"
+        //edtName.error ="Please enter your Name"
+        edtName.error ="Geben Sie bitte Ihren Namen ein"
         result = false
     }
     else{
@@ -128,13 +129,14 @@ private fun saveUser() {
     return result
 }
 
-    private fun checkUsername(): Boolean{
-    val username = edtPhone.editText?.text.toString().trim()
+    private fun checkPhoneUser(): Boolean{
+    val phoneUser = edtPhone.editText?.text.toString().trim()
     //val noWhiteSpace = "\\A\\w{4,20}\\z"
     var result = true
-    if(username.isEmpty())
+    if(phoneUser.isEmpty())
     {
-        edtPhone.error ="Please enter an Username"
+        //edtPhone.error ="Please enter an Username"
+        edtPhone.error ="Geben Sie bitte Ihre Telefonnummer ein"
         result = false
     }
     else{
@@ -151,7 +153,8 @@ private fun saveUser() {
     var result = true
     if(email.isEmpty())
     {
-        edtEmail.error ="Please enter your e-mail address"
+        //edtEmail.error ="Please enter your e-mail address"
+        edtEmail.error ="Geben Sie bitte Ihre E-Mail-Adresse ein"
         result = false
     }
     else{
@@ -168,11 +171,13 @@ private fun saveUser() {
     var result = true
     if(password.isEmpty())
     {
-        edtPassword.error ="Please enter your Password"
+        //edtPassword.error ="Please enter your Password"
+        edtPassword.error ="Geben Sie bitte ein Passwort ein"
         result = false
     }
     else if(!password.matches(noWhiteSpace)){
-        edtPassword.error = "Please enter at least 6 characters for Password "
+       // edtPassword.error = "Please enter at least 6 characters for Password "
+        edtPassword.error = "Das Passwort muss mindestens 6 Zeichen beinhalten "
         result = false
     }
     else{

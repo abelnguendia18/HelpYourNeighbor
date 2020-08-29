@@ -96,11 +96,13 @@ class LoginActivity : AppCompatActivity() {
         var result = true
         if(password.isEmpty())
         {
-            edtPassword.error ="Please enter your Password"
+           // edtPassword.error ="Please enter your Password"
+            edtPassword.error ="Geben Sie bitte Ihr Passwort ein"
             result = false
         }
         else if(!password.matches(noWhiteSpace)){
-            edtPassword.error = "Please enter at least 6 characters for Password "
+            //edtPassword.error = "Please enter at least 6 characters for Password "
+            edtPassword.error = "Ihr Passwort muss mindestens 6 Zeichen haben "
             result = false
         }
         else{
@@ -117,7 +119,8 @@ class LoginActivity : AppCompatActivity() {
         var result = true
         if(email.isEmpty())
         {
-            edtEmail.error ="Please enter your e-mail address"
+           // edtEmail.error ="Please enter your e-mail address"
+            edtEmail.error ="Geben Sie bitte Ihre E-Mail ein"
             result = false
         }
         else{
