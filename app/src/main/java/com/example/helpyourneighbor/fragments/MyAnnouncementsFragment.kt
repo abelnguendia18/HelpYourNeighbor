@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helpyourneighbor.adapters.MyAdapter
@@ -34,6 +35,7 @@ class MyAnnouncementsFragment : Fragment(), MyAdapter.OnItemClickListener {
     private var param2: String? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var myAnnouncemenstList : MutableList<Announcement>
+    private var cpt : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,9 +79,14 @@ class MyAnnouncementsFragment : Fragment(), MyAdapter.OnItemClickListener {
                 if(p0!!.exists()){
                     for(h in p0.children){
                         val announcement = h.getValue(Announcement::class.java)
-                        if(announcement!!.ownerId == uid)// We just need to have the Announcements of the current user.
+                        if(announcement!!.ownerId == uid) {// We just need to have the Announcements of the current user.
                             myAnnouncemenstList.add(announcement!!)
+                            cpt++
+                        }
+
                     }
+                    if (cpt == 0)
+                        Toast.makeText(context,"Sie haben noch keine Anzeige erstellt.", Toast.LENGTH_LONG ).show()
                     Log.d("HomeFragment", "part3: il y a ${myAnnouncemenstList.size} elements dans la db")
                     val myAdapter = MyAdapter(myAnnouncemenstList, context, this@MyAnnouncementsFragment)
                     recyclerView.adapter = myAdapter
