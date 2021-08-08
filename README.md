@@ -1,0 +1,1 @@
+HelpYourNeighbor is a mobile application that can be used by anyone with an Android smartphone. In addition, HelpYourNeighbor can be seen as a platform for job advertisements. This app allows people to advertise their services in different domains, such as:  Shopping help, cleaning help, gardening help, walking dogs, etc. This can be done with or without remuneration.
